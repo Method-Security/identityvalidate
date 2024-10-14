@@ -1,5 +1,5 @@
 products:
-  methodaws:
+  identityvalidate:
     build:
       main-pkg: .
       version-var: main.version

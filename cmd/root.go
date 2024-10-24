@@ -1,4 +1,4 @@
-// Package cmd implements the CobraCLI commands for the identityvalidation CLI. Subcommands for the CLI should all live within
+// Package cmd implements the CobraCLI commands for the identityvalidate CLI. Subcommands for the CLI should all live within
 // this package. Logic should be delegated to internal packages and functions to keep the CLI commands clean and
 // focused on CLI I/O.
 package cmd
@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Method-Security/identityvalidation/internal/config"
+	"github.com/Method-Security/identityvalidate/internal/config"
 	"github.com/Method-Security/pkg/signal"
 	"github.com/Method-Security/pkg/writer"
 	"github.com/palantir/pkg/datetime"
@@ -19,11 +19,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// IdentityValidation is the main struct that holds the root command and all subcommands that are used throughout execution
+// IdentityValidate is the main struct that holds the root command and all subcommands that are used throughout execution
 // of the CLI. It is also responsible for holding the Output configuration, and Output signal
 // for use by subcommands. The output signal is used to write the output of the command to the desired output format
 // after the execution of the invoked commands Run function.
-type IdentityValidation struct {
+type IdentityValidate struct {
 	Version      string
 	RootFlags    config.RootFlags
 	OutputConfig writer.OutputConfig
@@ -31,11 +31,11 @@ type IdentityValidation struct {
 	RootCmd      *cobra.Command
 }
 
-// NewIdentityValidation returns a new IdentityValidation struct with the provided version string. The IdentityValidation struct is used to
+// Newidentityvalidate returns a new identityvalidate struct with the provided version string. The identityvalidate struct is used to
 // initialize the root command and all subcommands that are used throughout execution of the CLI.
 // We pass the version command in here from the main.go file, where we set the version string during the build process.
-func NewIdentityValidation(version string) *IdentityValidation {
-	identityValidation := IdentityValidation{
+func Newidentityvalidate(version string) *IdentityValidate {
+	identityvalidate := IdentityValidate{
 		Version: version,
 		RootFlags: config.RootFlags{
 			Quiet:   false,
@@ -44,11 +44,11 @@ func NewIdentityValidation(version string) *IdentityValidation {
 		OutputConfig: writer.NewOutputConfig(nil, writer.NewFormat(writer.SIGNAL)),
 		OutputSignal: signal.NewSignal(nil, datetime.DateTime(time.Now()), nil, 0, nil),
 	}
-	return &identityValidation
+	return &identityvalidate
 }
 
 // Helper function to set up common configurations
-func (a *IdentityValidation) setupCommonConfig(cmd *cobra.Command, outputFormat string, outputFile string) error {
+func (a *IdentityValidate) setupCommonConfig(cmd *cobra.Command, outputFormat string, outputFile string) error {
 	var err error
 
 	cmd.SetContext(svc1log.WithLogger(cmd.Context(), config.InitializeLogging(cmd, &a.RootFlags)))
@@ -67,17 +67,17 @@ func (a *IdentityValidation) setupCommonConfig(cmd *cobra.Command, outputFormat 
 	return nil
 }
 
-// InitRootCommand initializes the root command for the identityvalidation CLI. This command is used to set the global flags
+// InitRootCommand initializes the root command for the identityvalidate CLI. This command is used to set the global flags
 // that are used by all subcommands, such as the output format, and output file. It also initializes the
 // version command that prints the version of the CLI.
 // Critically, this sets the PersistentPreRunE and PersistentPostRunE functions that are inherited by most subcommands.
 // The PersistentPostRunE function is used to write the output of the command to the desired output format after the execution of the invoked
 // command's Run function.
-func (a *IdentityValidation) InitRootCommand() {
+func (a *IdentityValidate) InitRootCommand() {
 	var outputFormat string
 	var outputFile string
 	a.RootCmd = &cobra.Command{
-		Use:          "identityvalidation",
+		Use:          "identityvalidate",
 		Short:        "Validation of Security Controls pertianing to Identity",
 		Long:         "Validation of Security Controls pertianing to Identity",
 		SilenceUsage: true,
@@ -105,7 +105,7 @@ func (a *IdentityValidation) InitRootCommand() {
 
 	versionCmd := &cobra.Command{
 		Use:   "version",
-		Short: "Print the version number of identityvalidation",
+		Short: "Print the version number of identityvalidate",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			return nil
 		},
@@ -127,7 +127,7 @@ func validateOutputFormat(output string) (writer.Format, error) {
 	case "json":
 		format = writer.JSON
 	case "yaml":
-		return writer.Format{}, errors.New("yaml output format is not supported for identityvalidation")
+		return writer.Format{}, errors.New("yaml output format is not supported for identityvalidate")
 	case "signal":
 		format = writer.SIGNAL
 	default:

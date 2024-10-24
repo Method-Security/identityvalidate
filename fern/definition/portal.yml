@@ -1,0 +1,58 @@
+imports:
+  common: ./common.yml
+# Enums
+types:
+  PortalType:
+    enum:
+      - AZURE
+  ModuleName:
+    enum:
+      - OWA_LOGIN
+# Config Struct
+  PortalConfig:
+    properties:
+      portalType: PortalType
+      moduleName: ModuleName
+      attempts: integer
+      username: string
+      password: string
+      agentHeader: string
+      interval: integer
+      timeout: integer
+# Request/Response Structs
+  ResponseUnion: 
+    union:
+      GeneralResponse: GeneralResponseInfo
+  GeneralResponseInfo:
+    properties:
+      statusCode: integer
+      body: optional<string>
+      headers: optional<map<string,string>>
+      error: optional<string>
+  GeneralRequestInfo:
+    properties:
+      method: common.HttpMethod
+      url: string
+      params: optional<map<string,string>>
+      headers: optional<map<string,string>>
+      body: optional<string>
+# Attempt Structs
+  GeneralAttemptInfo:
+    properties:
+      timestamp: datetime
+      request: GeneralRequestInfo
+      response: optional<GeneralResponseInfo>
+# IdentityValidate Report Struct
+  AttemptInfoUnion: 
+    union:
+      GeneralAttempt: GeneralAttemptInfo
+  Trigger:
+    properties:
+      target: string
+      AttemptInfo: optional<AttemptInfoUnion>
+  PortalReport:
+    properties:
+      portalType: PortalType
+      moduleName: ModuleName
+      triggers: optional<list<Trigger>>
+      errors: optional<list<string>>

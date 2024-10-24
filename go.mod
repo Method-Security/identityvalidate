@@ -1,4 +1,4 @@
-module github.com/Method-Security/identityvalidation
+module github.com/Method-Security/identityvalidate
 
 go 1.22.5
 

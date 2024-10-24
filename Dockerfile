@@ -1,6 +1,6 @@
 FROM alpine:3.20
 
-ARG CLI_NAME="identityvalidation"
+ARG CLI_NAME="identityvalidate"
 ARG TARGETARCH
 
 RUN apk update && apk add --no-cache bash jq ca-certificates
@@ -27,4 +27,4 @@ USER method
 WORKDIR /opt/method/${CLI_NAME}/
 
 ENV PATH="/opt/method/${CLI_NAME}/service/bin:${PATH}"
-ENTRYPOINT [ "identityvalidation" ]
+ENTRYPOINT [ "identityvalidate" ]

@@ -45,6 +45,16 @@ func (a *IdentityValidate) InitPortalCommand() {
 				a.OutputSignal.AddError(err)
 				return
 			}
+			clientID, err := cmd.Flags().GetString("clientid")
+			if err != nil {
+				a.OutputSignal.AddError(err)
+				return
+			}
+			tenantID, err := cmd.Flags().GetString("tenantid")
+			if err != nil {
+				a.OutputSignal.AddError(err)
+				return
+			}
 			interval, err := cmd.Flags().GetInt("interval")
 			if err != nil {
 				a.OutputSignal.AddError(err)
@@ -62,6 +72,8 @@ func (a *IdentityValidate) InitPortalCommand() {
 				username,
 				password,
 				agentHeader,
+				clientID,
+				tenantID,
 				interval,
 				timeout,
 			)
@@ -83,10 +95,15 @@ func (a *IdentityValidate) InitPortalCommand() {
 	owaCmd.Flags().String("username", "", "Login portal username")
 	owaCmd.Flags().String("password", "", "Login portal password")
 	owaCmd.Flags().String("agentheader", "", "The agent header set in the request")
+	owaCmd.Flags().String("clientid", "", "Client Id set in request")
+	owaCmd.Flags().String("tenantid", "", "Tenant Id set in request")
 	owaCmd.Flags().Int("interval", 0, "Trigger sleep intervals for making multiple attempts (Seconds)")
 	owaCmd.Flags().Int("timeout", 10, "Timeout limit (Seconds)")
 
 	_ = owaCmd.MarkFlagRequired("username")
+	_ = owaCmd.MarkFlagRequired("password")
+	_ = owaCmd.MarkFlagRequired("clientid")
+	_ = owaCmd.MarkFlagRequired("tenantid")
 
 	portalCmd.AddCommand(azureCmd)
 	azureCmd.AddCommand(owaCmd)
@@ -94,7 +111,7 @@ func (a *IdentityValidate) InitPortalCommand() {
 	a.RootCmd.AddCommand(portalCmd)
 }
 
-func newPortalConfig(portalType identityvalidate.PortalType, moduleName identityvalidate.ModuleName, attempts int, username string, password string, agentHeader string, interval int, timeout int) (*identityvalidate.PortalConfig, error) {
+func newPortalConfig(portalType identityvalidate.PortalType, moduleName identityvalidate.ModuleName, attempts int, username string, password string, agentHeader string, clientID string, tenantID string, interval int, timeout int) (*identityvalidate.PortalConfig, error) {
 	config := &identityvalidate.PortalConfig{
 		PortalType:  portalType,
 		ModuleName:  moduleName,
@@ -102,6 +119,8 @@ func newPortalConfig(portalType identityvalidate.PortalType, moduleName identity
 		Username:    username,
 		Password:    password,
 		AgentHeader: agentHeader,
+		ClientId:    clientID,
+		TenantId:    tenantID,
 		Interval:    interval,
 		Timeout:     timeout,
 	}

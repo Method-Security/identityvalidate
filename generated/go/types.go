@@ -260,6 +260,8 @@ type PortalConfig struct {
 	Username    string     `json:"username" url:"username"`
 	Password    string     `json:"password" url:"password"`
 	AgentHeader string     `json:"agentHeader" url:"agentHeader"`
+	ClientId    string     `json:"clientId" url:"clientId"`
+	TenantId    string     `json:"tenantId" url:"tenantId"`
 	Interval    int        `json:"interval" url:"interval"`
 	Timeout     int        `json:"timeout" url:"timeout"`
 

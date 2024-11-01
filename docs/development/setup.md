@@ -2,11 +2,11 @@
 
 ## Adding a new capability
 
-To add a new capability to identityvalidation, providing new control validation capabilities to security operators everywhere, please see the [adding a new capability](./adding.md) page.
+To add a new capability to identityvalidate, providing new control validation capabilities to security operators everywhere, please see the [adding a new capability](./adding.md) page.
 
 ## Setting up your development environment
 
-If you've just cloned identityvalidation for the first time, welcome to the community! We use Palantir's [godel](https://github.com/palantir/godel) to streamline local development and [goreleaser](https://goreleaser.com/) to handle the heavy lifting on the release process.
+If you've just cloned identityvalidate for the first time, welcome to the community! We use Palantir's [godel](https://github.com/palantir/godel) to streamline local development and [goreleaser](https://goreleaser.com/) to handle the heavy lifting on the release process.
 
 To get started with godel, you can run
 
@@ -24,7 +24,7 @@ We can use godel to build our CLI locally by running
 ./godelw build
 ```
 
-You should see output in `out/build/identityvalidate/<version>/<os>-<arch>/identityvalidation`.
+You should see output in `out/build/identityvalidate/<version>/<os>-<arch>/identityvalidate`.
 
 If you'd like to clean this output up, you can run
 
@@ -34,7 +34,7 @@ If you'd like to clean this output up, you can run
 
 ## Testing releases locally
 
-We can use goreleaser locally as well to test our builds. As identityvalidation uses [cosign](https://github.com/sigstore/cosign) to sign our artifacts and Docker containers during our CI pipeline, we'll want to skip this step when running locally.
+We can use goreleaser locally as well to test our builds. As identityvalidate uses [cosign](https://github.com/sigstore/cosign) to sign our artifacts and Docker containers during our CI pipeline, we'll want to skip this step when running locally.
 
 ```bash
 goreleaser release --snapshot --clean --skip sign

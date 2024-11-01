@@ -4,7 +4,7 @@ import (
 	"flag"
 	"os"
 
-	"github.com/Method-Security/identityvalidation/cmd"
+	"github.com/Method-Security/identityvalidate/cmd"
 )
 
 var Version = "none"
@@ -12,9 +12,11 @@ var Version = "none"
 func main() {
 	flag.Parse()
 
-	identityvalidation := cmd.NewIdentityValidation(Version)
+	identityvalidate := cmd.Newidentityvalidate(Version)
+	identityvalidate.InitRootCommand()
+	identityvalidate.InitPortalCommand()
 
-	if err := identityvalidation.RootCmd.Execute(); err != nil {
+	if err := identityvalidate.RootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
 

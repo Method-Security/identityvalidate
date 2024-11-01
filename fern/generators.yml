@@ -5,7 +5,7 @@ groups:
       - name: fernapi/fern-go-model
         version: 0.23.4
         config:
-          importpath: github.com/Method-Security/identityvalidation/generated/go
+          importpath: github.com/Method-Security/identityvalidate/generated/go
         output:
           location: local-file-system
           path: ../generated/go
@@ -21,10 +21,10 @@ groups:
       - name: fernapi/fern-pydantic-model
         version: 1.4.6
         config:
-          package_name: methodidentityvalidation
+          package_name: methodidentityvalidate
         output:
           location: pypi
-          package-name: methodidentityvalidation
+          package-name: methodidentityvalidate
           token: ${TEST_PYPI_TOKEN}
           url: https://test.pypi.org/legacy/
   pypi:
@@ -32,8 +32,8 @@ groups:
       - name: fernapi/fern-pydantic-model
         version: 1.4.6
         config:
-          package_name: methodidentityvalidation
+          package_name: methodidentityvalidate
         output:
           location: pypi
-          package-name: methodidentityvalidation
+          package-name: methodidentityvalidate
           token: ${PYPI_TOKEN}

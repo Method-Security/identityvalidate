@@ -1,14 +1,14 @@
 version: 2
 
-project_name: identityvalidation
+project_name: identityvalidate
 builds:
   - id: build-linux
     main: .
-    binary: identityvalidation
+    binary: identityvalidate
     ldflags:
       - -s -w
       - "-extldflags '-static'"
-      - -X github.com/method-security/identityvalidation/main.version={{.Version}}
+      - -X github.com/method-security/identityvalidate/main.version={{.Version}}
     env:
       - CGO_ENABLED=0
     goos:
@@ -22,11 +22,11 @@ builds:
       - "7"
   - id: build-macos
     main: .
-    binary: identityvalidation
+    binary: identityvalidate
     ldflags:
       - -s -w
       - "-extldflags '-static'"
-      - -X github.com/method-security/identityvalidation/main.version={{.Version}}
+      - -X github.com/method-security/identityvalidate/main.version={{.Version}}
     env:
       - CGO_ENABLED=0
     goos:
@@ -38,11 +38,11 @@ builds:
       - "7"
   - id: build-windows
     main: .
-    binary: identityvalidation
+    binary: identityvalidate
     ldflags:
       - -s -w
       - "-extldflags '-static'"
-      - -X github.com/method-security/identityvalidation/main.version={{.Version}}
+      - -X github.com/method-security/identityvalidate/main.version={{.Version}}
     env:
       - CGO_ENABLED=0
     goos:
@@ -74,10 +74,10 @@ archives:
 
 dockers:
   - image_templates:
-      - "docker.io/methodsecurity/identityvalidation:{{ .Version }}-amd64"
-      - "docker.io/methodsecurity/identityvalidation:latest-amd64"
-      - "ghcr.io/method-security/identityvalidation:{{ .Version }}-amd64"
-      - "ghcr.io/method-security/identityvalidation:latest-amd64"
+      - "docker.io/methodsecurity/identityvalidate:{{ .Version }}-amd64"
+      - "docker.io/methodsecurity/identityvalidate:latest-amd64"
+      - "ghcr.io/method-security/identityvalidate:{{ .Version }}-amd64"
+      - "ghcr.io/method-security/identityvalidate:latest-amd64"
     use: buildx
     goos: linux
     goarch: amd64
@@ -89,16 +89,16 @@ dockers:
       - "--label=org.opencontainers.image.vendor=Method Security"
       - "--label=org.opencontainers.image.version={{ .Version }}"
       - "--label=org.opencontainers.image.created={{ .Date }}"
-      - "--label=org.opencontainers.image.source=https://github.com/method-security/identityvalidation"
+      - "--label=org.opencontainers.image.source=https://github.com/method-security/identityvalidate"
       - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
       - "--label=org.opencontainers.image.url=https://method.security"
-      - "--label=org.opencontainers.image.documentation=https://github.com/method-security/identityvalidation"
+      - "--label=org.opencontainers.image.documentation=https://github.com/method-security/identityvalidate"
       - "--platform=linux/amd64"
   - image_templates:
-      - "docker.io/methodsecurity/identityvalidation:{{ .Version }}-arm64"
-      - "docker.io/methodsecurity/identityvalidation:latest-arm64"
-      - "ghcr.io/method-security/identityvalidation:{{ .Version }}-arm64"
-      - "ghcr.io/method-security/identityvalidation:latest-arm64"
+      - "docker.io/methodsecurity/identityvalidate:{{ .Version }}-arm64"
+      - "docker.io/methodsecurity/identityvalidate:latest-arm64"
+      - "ghcr.io/method-security/identityvalidate:{{ .Version }}-arm64"
+      - "ghcr.io/method-security/identityvalidate:latest-arm64"
     use: buildx
     goos: linux
     goarch: arm64
@@ -110,29 +110,29 @@ dockers:
       - "--label=org.opencontainers.image.vendor=Method Security"
       - "--label=org.opencontainers.image.version={{ .Version }}"
       - "--label=org.opencontainers.image.created={{ .Date }}"
-      - "--label=org.opencontainers.image.source=https://github.com/method-security/identityvalidation"
+      - "--label=org.opencontainers.image.source=https://github.com/method-security/identityvalidate"
       - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
       - "--label=org.opencontainers.image.url=https://method.security"
-      - "--label=org.opencontainers.image.documentation=https://github.com/method-security/identityvalidation"
+      - "--label=org.opencontainers.image.documentation=https://github.com/method-security/identityvalidate"
       - "--platform=linux/arm64"
 
 docker_manifests:
-  - name_template: 'ghcr.io/method-security/identityvalidation:{{ .Version }}'
+  - name_template: 'ghcr.io/method-security/identityvalidate:{{ .Version }}'
     image_templates:
-    - 'ghcr.io/method-security/identityvalidation:{{ .Version }}-amd64'
-    - 'ghcr.io/method-security/identityvalidation:{{ .Version }}-arm64'
-  - name_template: 'ghcr.io/method-security/identityvalidation:latest'
+    - 'ghcr.io/method-security/identityvalidate:{{ .Version }}-amd64'
+    - 'ghcr.io/method-security/identityvalidate:{{ .Version }}-arm64'
+  - name_template: 'ghcr.io/method-security/identityvalidate:latest'
     image_templates:
-    - 'ghcr.io/method-security/identityvalidation:{{ .Version }}-amd64'
-    - 'ghcr.io/method-security/identityvalidation:{{ .Version }}-arm64'
-  - name_template: 'methodsecurity/identityvalidation:{{ .Version }}'
+    - 'ghcr.io/method-security/identityvalidate:{{ .Version }}-amd64'
+    - 'ghcr.io/method-security/identityvalidate:{{ .Version }}-arm64'
+  - name_template: 'methodsecurity/identityvalidate:{{ .Version }}'
     image_templates:
-    - 'methodsecurity/identityvalidation:{{ .Version }}-amd64'
-    - 'methodsecurity/identityvalidation:{{ .Version }}-arm64'
-  - name_template: 'methodsecurity/identityvalidation:latest'
+    - 'methodsecurity/identityvalidate:{{ .Version }}-amd64'
+    - 'methodsecurity/identityvalidate:{{ .Version }}-arm64'
+  - name_template: 'methodsecurity/identityvalidate:latest'
     image_templates:
-    - 'methodsecurity/identityvalidation:{{ .Version }}-amd64'
-    - 'methodsecurity/identityvalidation:{{ .Version }}-arm64'
+    - 'methodsecurity/identityvalidate:{{ .Version }}-amd64'
+    - 'methodsecurity/identityvalidate:{{ .Version }}-arm64'
 
 source:
   enabled: true
